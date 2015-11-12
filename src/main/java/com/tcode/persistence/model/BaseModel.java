@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by sroshchupkin on 10/11/15.
+ * Created by Sergey Roshchupkin on 10/11/15.
  */
 public class BaseModel implements Serializable{
     @Id

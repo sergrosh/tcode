@@ -3,7 +3,7 @@ package com.tcode.persistence.repository.user;
 import com.tcode.persistence.model.SpringUser;
 
 /**
- * Created by Sergey on 11/11/2015.
+ * Created by Sergey Roshchupkin on 11/11/2015.
  */
 public interface SpringUserRepositoryCustom {
 

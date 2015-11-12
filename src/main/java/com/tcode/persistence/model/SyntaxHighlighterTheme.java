@@ -1,7 +1,7 @@
 package com.tcode.persistence.model;
 
 /**
- * Created by sroshchupkin on 10/11/15.
+ * Created by Sergey Roshchupkin on 10/11/15.
  */
 public enum SyntaxHighlighterTheme {
     DEFAULT("Default", "shThemeDefault.css"),

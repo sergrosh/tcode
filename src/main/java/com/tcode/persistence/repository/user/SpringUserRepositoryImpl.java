@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * Created by Sergey on 11/11/2015.
+ * Created by Sergey Roshchupkin on 11/11/2015.
  */
 public class SpringUserRepositoryImpl implements SpringUserRepositoryCustom {
 

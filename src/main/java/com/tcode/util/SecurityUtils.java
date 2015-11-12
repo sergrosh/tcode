@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by sroshchupkin on 10/11/15.
+ * Created by Sergey Roshchupkin on 10/11/15.
  */
 public class SecurityUtils {
 
