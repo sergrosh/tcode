@@ -1,7 +1,7 @@
 package com.tcode.persistence.repository;
 
 /**
- * Created by Sergey on 11/11/2015.
+ * Created by Sergey Roshchupkin on 11/11/2015.
  */
 
 import com.tcode.persistence.model.PublishModel;
