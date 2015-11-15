@@ -2,6 +2,7 @@ package com.tcode.persistence.repository.technology;
 
 
 import com.tcode.persistence.model.Technology;
+import com.tcode.persistence.repository.PublishRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

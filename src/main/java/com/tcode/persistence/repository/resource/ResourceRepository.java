@@ -1,6 +1,7 @@
 package com.tcode.persistence.repository.resource;
 
 import com.tcode.persistence.model.Resource;
+import com.tcode.persistence.repository.PublishRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

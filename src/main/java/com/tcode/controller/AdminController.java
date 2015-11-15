@@ -1,6 +1,8 @@
 package com.tcode.controller;
 
 import com.tcode.common.PaginationBean;
+import com.tcode.persistence.model.SpringUser;
+import com.tcode.persistence.repository.resource.ResourceRepository;
 import com.tcode.persistence.repository.technology.TechnologyRepository;
 import com.tcode.persistence.repository.tool.ToolRepository;
 import com.tcode.persistence.repository.user.SpringUserRepository;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by Sergey on 11/15/2015.
+ * Created by Sergey  on 11/15/2015.
  */
 @Controller
 @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -27,7 +29,7 @@ public class AdminController {
     @Autowired
     private TechnologyRepository technologyRepository;
     @Autowired
-    private ResourceRepository  resourceRepository;
+    private ResourceRepository resourceRepository;
     @Autowired
     private SpringUserRepository userRepository;
     @Autowired
