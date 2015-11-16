@@ -10,7 +10,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,6 @@ import javax.validation.Valid;
  */
 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@Controller
 public class UserController {
 
     private static final Logger logger = Logger.getLogger(UserController.class);
