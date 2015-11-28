@@ -1,4 +1,4 @@
-CodeMirror.defineMode("vb", function (conf, parserConf) {
+CodeMirror.defineMode("vb", function(conf, parserConf) {
     var ERRORCLASS = 'error';
 
     function wordRegexp(words) {
@@ -12,15 +12,15 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
     var tripleDelimiters = new RegExp("^((//=)|(>>=)|(<<=)|(\\*\\*=))");
     var identifiers = new RegExp("^[_A-Za-z][_A-Za-z0-9]*");
 
-    var openingKeywords = ['class', 'module', 'sub', 'enum', 'select', 'while', 'if', 'function', 'get', 'set', 'property', 'try'];
-    var middleKeywords = ['else', 'elseif', 'case', 'catch'];
-    var endKeywords = ['next', 'loop'];
+    var openingKeywords = ['class','module', 'sub','enum','select','while','if','function',  'get','set','property', 'try'];
+    var middleKeywords = ['else','elseif','case', 'catch'];
+    var endKeywords = ['next','loop'];
 
     var wordOperators = wordRegexp(['and', 'or', 'not', 'xor', 'in']);
-    var commonkeywords = ['as', 'dim', 'break', 'continue', 'optional', 'then', 'until',
-        'goto', 'byval', 'byref', 'new', 'handles', 'property', 'return',
-        'const', 'private', 'protected', 'friend', 'public', 'shared', 'static', 'true', 'false'];
-    var commontypes = ['integer', 'string', 'double', 'decimal', 'boolean', 'short', 'char', 'float', 'single'];
+    var commonkeywords = ['as', 'dim', 'break',  'continue','optional', 'then',  'until',
+                          'goto', 'byval','byref','new','handles','property', 'return',
+                          'const','private', 'protected', 'friend', 'public', 'shared', 'static', 'true','false'];
+    var commontypes = ['integer','string','double','decimal','boolean','short','char', 'float','single'];
 
     var keywords = wordRegexp(commonkeywords);
     var types = wordRegexp(commontypes);
@@ -35,14 +35,15 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
     var indentInfo = null;
 
 
+
+
     function indent(_stream, state) {
-        state.currentIndent++;
+      state.currentIndent++;
     }
 
     function dedent(_stream, state) {
-        state.currentIndent--;
+      state.currentIndent--;
     }
-
     // tokenizers
     function tokenBase(stream, state) {
         if (stream.eatSpace()) {
@@ -62,15 +63,9 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
         if (stream.match(/^((&H)|(&O))?[0-9\.a-f]/i, false)) {
             var floatLiteral = false;
             // Floats
-            if (stream.match(/^\d*\.\d+F?/i)) {
-                floatLiteral = true;
-            }
-            else if (stream.match(/^\d+\.\d*F?/)) {
-                floatLiteral = true;
-            }
-            else if (stream.match(/^\.\d+F?/)) {
-                floatLiteral = true;
-            }
+            if (stream.match(/^\d*\.\d+F?/i)) { floatLiteral = true; }
+            else if (stream.match(/^\d+\.\d*F?/)) { floatLiteral = true; }
+            else if (stream.match(/^\.\d+F?/)) { floatLiteral = true; }
 
             if (floatLiteral) {
                 // Float literals may be "imaginary"
@@ -80,13 +75,9 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
             // Integers
             var intLiteral = false;
             // Hex
-            if (stream.match(/^&H[0-9a-f]+/i)) {
-                intLiteral = true;
-            }
+            if (stream.match(/^&H[0-9a-f]+/i)) { intLiteral = true; }
             // Octal
-            else if (stream.match(/^&O[0-7]+/i)) {
-                intLiteral = true;
-            }
+            else if (stream.match(/^&O[0-7]+/i)) { intLiteral = true; }
             // Decimal
             else if (stream.match(/^[1-9]\d*F?/)) {
                 // Decimal literals may be "imaginary"
@@ -95,9 +86,7 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
                 intLiteral = true;
             }
             // Zero by itself with no other piece of number.
-            else if (stream.match(/^0(?![\dx])/i)) {
-                intLiteral = true;
-            }
+            else if (stream.match(/^0(?![\dx])/i)) { intLiteral = true; }
             if (intLiteral) {
                 // Integer literals may be "long"
                 stream.eat(/L/i);
@@ -124,15 +113,15 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
             return null;
         }
         if (stream.match(doOpening)) {
-            indent(stream, state);
+            indent(stream,state);
             state.doInCurrentLine = true;
             return 'keyword';
         }
         if (stream.match(opening)) {
-            if (!state.doInCurrentLine)
-                indent(stream, state);
+            if (! state.doInCurrentLine)
+              indent(stream,state);
             else
-                state.doInCurrentLine = false;
+              state.doInCurrentLine = false;
             return 'keyword';
         }
         if (stream.match(middle)) {
@@ -140,12 +129,12 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
         }
 
         if (stream.match(doubleClosing)) {
-            dedent(stream, state);
-            dedent(stream, state);
+            dedent(stream,state);
+            dedent(stream,state);
             return 'keyword';
         }
         if (stream.match(closing)) {
-            dedent(stream, state);
+            dedent(stream,state);
             return 'keyword';
         }
 
@@ -170,7 +159,7 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
         var singleline = delimiter.length == 1;
         var OUTCLASS = 'string';
 
-        return function (stream, state) {
+        return function(stream, state) {
             while (!stream.eol()) {
                 stream.eatWhile(/[^'"]/);
                 if (stream.match(delimiter)) {
@@ -210,7 +199,7 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
 
         var delimiter_index = '[({'.indexOf(current);
         if (delimiter_index !== -1) {
-            indent(stream, state);
+            indent(stream, state );
         }
         if (indentInfo === 'dedent') {
             if (dedent(stream, state)) {
@@ -228,37 +217,38 @@ CodeMirror.defineMode("vb", function (conf, parserConf) {
     }
 
     var external = {
-        electricChars: "dDpPtTfFeE ",
-        startState: function () {
+        electricChars:"dDpPtTfFeE ",
+        startState: function() {
             return {
-                tokenize: tokenBase,
-                lastToken: null,
-                currentIndent: 0,
-                nextLineIndent: 0,
-                doInCurrentLine: false
+              tokenize: tokenBase,
+              lastToken: null,
+              currentIndent: 0,
+              nextLineIndent: 0,
+              doInCurrentLine: false
 
 
-            };
+          };
         },
 
-        token: function (stream, state) {
+        token: function(stream, state) {
             if (stream.sol()) {
-                state.currentIndent += state.nextLineIndent;
-                state.nextLineIndent = 0;
-                state.doInCurrentLine = 0;
+              state.currentIndent += state.nextLineIndent;
+              state.nextLineIndent = 0;
+              state.doInCurrentLine = 0;
             }
             var style = tokenLexer(stream, state);
 
-            state.lastToken = {style: style, content: stream.current()};
+            state.lastToken = {style:style, content: stream.current()};
+
 
 
             return style;
         },
 
-        indent: function (state, textAfter) {
-            var trueText = textAfter.replace(/^\s+|\s+$/g, '');
-            if (trueText.match(closing) || trueText.match(doubleClosing) || trueText.match(middle)) return conf.indentUnit * (state.currentIndent - 1);
-            if (state.currentIndent < 0) return 0;
+        indent: function(state, textAfter) {
+            var trueText = textAfter.replace(/^\s+|\s+$/g, '') ;
+            if (trueText.match(closing) || trueText.match(doubleClosing) || trueText.match(middle)) return conf.indentUnit*(state.currentIndent-1);
+            if(state.currentIndent < 0) return 0;
             return state.currentIndent * conf.indentUnit;
         }
 

@@ -27,7 +27,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @ImportResource("classpath*:springmvc-resteasy.xml")
-@ComponentScan(basePackages = "com.jcoderepository.controller")
+@ComponentScan(basePackages = "com.tcode.controller")
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired

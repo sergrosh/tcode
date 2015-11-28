@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        version="2.0">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>JCodeRepostiryTGLib</short-name>
+    <uri>custom-tglib</uri>
+
+    <function>
+        <name>mode</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>java.lang.String getMirrorMode(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>shBrush</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>java.lang.String getShBrush(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>langName</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>java.lang.String getName(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>codes</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>com.tcode.persistence.model.CodeType[] getCodes()</function-signature>
+    </function>
+
+    <function>
+        <name>join</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>java.lang.String join(java.util.Set,java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <name>isUser</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>boolean isUser(java.lang.Object)</function-signature>
+    </function>
+
+    <function>
+        <name>cmFile</name>
+        <function-class>com.tcode.web.ElFunctions</function-class>
+        <function-signature>java.lang.String getCmFile(java.lang.String)</function-signature>
+    </function>
+
+</taglib>

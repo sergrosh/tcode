@@ -1,4 +1,4 @@
-CodeMirror.defineMode("velocity", function () {
+CodeMirror.defineMode("velocity", function() {
     function parseWords(str) {
         var obj = {}, words = str.split(" ");
         for (var i = 0; i < words.length; ++i) obj[words[i]] = true;
@@ -6,9 +6,9 @@ CodeMirror.defineMode("velocity", function () {
     }
 
     var keywords = parseWords("#end #else #break #stop #[[ #]] " +
-        "#{end} #{else} #{break} #{stop}");
+                              "#{end} #{else} #{break} #{stop}");
     var functions = parseWords("#if #elseif #foreach #set #include #parse #macro #define #evaluate " +
-        "#{if} #{elseif} #{foreach} #{set} #{include} #{parse} #{macro} #{define} #{evaluate}");
+                               "#{if} #{elseif} #{foreach} #{set} #{include} #{parse} #{macro} #{define} #{evaluate}");
     var specials = parseWords("$foreach.count $foreach.hasNext $foreach.first $foreach.last $foreach.topmost $foreach.parent $velocityCount");
     var isOperatorChar = /[+\-*&%=<>!?:\/|]/;
 
@@ -16,7 +16,6 @@ CodeMirror.defineMode("velocity", function () {
         state.tokenize = f;
         return f(stream, state);
     }
-
     function tokenBase(stream, state) {
         var beforeParams = state.beforeParams;
         state.beforeParams = false;
@@ -74,7 +73,7 @@ CodeMirror.defineMode("velocity", function () {
                 return "keyword";
             // is it one of the listed functions?
             if (functions && functions.propertyIsEnumerable(word) ||
-                stream.current().match(/^#[a-z0-9_]+ *$/i) && stream.peek() == "(") {
+                stream.current().match(/^#[a-z0-9_]+ *$/i) && stream.peek()=="(") {
                 state.beforeParams = true;
                 return "keyword";
             }
@@ -84,7 +83,7 @@ CodeMirror.defineMode("velocity", function () {
     }
 
     function tokenString(quote) {
-        return function (stream, state) {
+        return function(stream, state) {
             var escaped = false, next, end = false;
             while ((next = stream.next()) != null) {
                 if (next == quote && !escaped) {
@@ -124,11 +123,10 @@ CodeMirror.defineMode("velocity", function () {
         }
         return "meta";
     }
-
     // Interface
 
     return {
-        startState: function () {
+        startState: function() {
             return {
                 tokenize: tokenBase,
                 beforeParams: false,
@@ -136,7 +134,7 @@ CodeMirror.defineMode("velocity", function () {
             };
         },
 
-        token: function (stream, state) {
+        token: function(stream, state) {
             if (stream.eatSpace()) return null;
             return state.tokenize(stream, state);
         }

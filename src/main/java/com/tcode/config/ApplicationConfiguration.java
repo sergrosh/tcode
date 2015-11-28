@@ -28,8 +28,8 @@ import java.net.UnknownHostException;
 @EnableCaching
 @EnableAsync
 @EnableScheduling
-@ComponentScan(basePackages = "com.jcoderepository", excludeFilters = {@ComponentScan.Filter(Configuration.class), @ComponentScan.Filter(Controller.class)})
-@EnableMongoRepositories("com.jcoderepository.persistence.repository")
+@ComponentScan(basePackages = "com.tcode", excludeFilters = {@ComponentScan.Filter(Configuration.class), @ComponentScan.Filter(Controller.class)})
+@EnableMongoRepositories("com.tcode.persistence.repository")
 @PropertySource({"classpath:application.properties"})
 public class ApplicationConfiguration extends BaseConfiguration {
 

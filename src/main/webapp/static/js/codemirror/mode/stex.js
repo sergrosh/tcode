@@ -3,7 +3,7 @@
  * Licence: MIT
  */
 
-CodeMirror.defineMode("stex", function () {
+CodeMirror.defineMode("stex", function() {
     "use strict";
 
     function pushCommand(state, command) {
@@ -35,11 +35,7 @@ CodeMirror.defineMode("stex", function () {
             }
             return plug;
         }
-        return {
-            styleIdentifier: function () {
-                return null;
-            }
-        };
+        return { styleIdentifier: function() { return null; } };
     }
 
     function addPluginPattern(pluginName, cmdStyle, styles) {
@@ -50,15 +46,14 @@ CodeMirror.defineMode("stex", function () {
             this.styles = styles;
             this.argument = null;   // \begin and \end have arguments that follow. These are stored in the plugin
 
-            this.styleIdentifier = function () {
+            this.styleIdentifier = function() {
                 return this.styles[this.bracketNo - 1] || null;
             };
-            this.openBracket = function () {
+            this.openBracket = function() {
                 this.bracketNo++;
                 return "bracket";
             };
-            this.closeBracket = function () {
-            };
+            this.closeBracket = function() {};
         };
     }
 
@@ -74,8 +69,7 @@ CodeMirror.defineMode("stex", function () {
         this.name = "DEFAULT";
         this.style = "tag";
 
-        this.styleIdentifier = this.openBracket = this.closeBracket = function () {
-        };
+        this.styleIdentifier = this.openBracket = this.closeBracket = function() {};
     };
 
     function setState(state, f) {
@@ -97,31 +91,25 @@ CodeMirror.defineMode("stex", function () {
 
         // escape characters
         if (source.match(/^\\[$&%#{}_]/)) {
-            return "tag";
+          return "tag";
         }
 
         // white space control characters
         if (source.match(/^\\[,;!\/]/)) {
-            return "tag";
+          return "tag";
         }
 
         // find if we're starting various math modes
         if (source.match("\\[")) {
-            setState(state, function (source, state) {
-                return inMathMode(source, state, "\\]");
-            });
+            setState(state, function(source, state){ return inMathMode(source, state, "\\]"); });
             return "keyword";
         }
         if (source.match("$$")) {
-            setState(state, function (source, state) {
-                return inMathMode(source, state, "$$");
-            });
+            setState(state, function(source, state){ return inMathMode(source, state, "$$"); });
             return "keyword";
         }
         if (source.match("$")) {
-            setState(state, function (source, state) {
-                return inMathMode(source, state, "$");
-            });
+            setState(state, function(source, state){ return inMathMode(source, state, "$"); });
             return "keyword";
         }
 
@@ -129,7 +117,7 @@ CodeMirror.defineMode("stex", function () {
         if (ch == "%") {
             // special case: % at end of its own line; stay in same state
             if (!source.eol()) {
-                setState(state, inCComment);
+              setState(state, inCComment);
             }
             return "comment";
         }
@@ -184,22 +172,22 @@ CodeMirror.defineMode("stex", function () {
         }
         // escape characters
         if (source.match(/^\\[$&%#{}_]/)) {
-            return "tag";
+          return "tag";
         }
         // white space control characters
         if (source.match(/^\\[,;!\/]/)) {
-            return "tag";
+          return "tag";
         }
         // special math-mode characters
         if (source.match(/^[\^_&]/)) {
-            return "tag";
+          return "tag";
         }
         // non-special characters
         if (source.match(/^[+\-<>|=,\/@!*:;'"`~#?]/)) {
             return null;
         }
         if (source.match(/^(\d+\.\d*|\d*\.\d+|\d+)/)) {
-            return "number";
+          return "number";
         }
         var ch = source.next();
         if (ch == "{" || ch == "}" || ch == "[" || ch == "]" || ch == "(" || ch == ")") {
@@ -236,19 +224,19 @@ CodeMirror.defineMode("stex", function () {
     }
 
     return {
-        startState: function () {
+        startState: function() {
             return {
                 cmdState: [],
                 f: normal
             };
         },
-        copyState: function (s) {
+        copyState: function(s) {
             return {
                 cmdState: s.cmdState.slice(),
                 f: s.f
             };
         },
-        token: function (stream, state) {
+        token: function(stream, state) {
             return state.f(stream, state);
         }
     };

@@ -34,22 +34,22 @@ CodeMirror.defineMode("scheme", function () {
     var hexMatcher = new RegExp(/^(?:[-+]i|[-+][\da-f]+#*(?:\/[\da-f]+#*)?i|[-+]?[\da-f]+#*(?:\/[\da-f]+#*)?@[-+]?[\da-f]+#*(?:\/[\da-f]+#*)?|[-+]?[\da-f]+#*(?:\/[\da-f]+#*)?[-+](?:[\da-f]+#*(?:\/[\da-f]+#*)?)?i|[-+]?[\da-f]+#*(?:\/[\da-f]+#*)?)(?=[()\s;"]|$)/i);
     var decimalMatcher = new RegExp(/^(?:[-+]i|[-+](?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*)i|[-+]?(?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*)@[-+]?(?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*)|[-+]?(?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*)[-+](?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*)?i|(?:(?:(?:\d+#+\.?#*|\d+\.\d*#*|\.\d+#*|\d+)(?:[esfdl][-+]?\d+)?)|\d+#*\/\d+#*))(?=[()\s;"]|$)/i);
 
-    function isBinaryNumber(stream) {
+    function isBinaryNumber (stream) {
         return stream.match(binaryMatcher);
     }
 
-    function isOctalNumber(stream) {
+    function isOctalNumber (stream) {
         return stream.match(octalMatcher);
     }
 
-    function isDecimalNumber(stream, backup) {
+    function isDecimalNumber (stream, backup) {
         if (backup === true) {
             stream.backUp(1);
         }
         return stream.match(decimalMatcher);
     }
 
-    function isHexNumber(stream) {
+    function isHexNumber (stream) {
         return stream.match(hexMatcher);
     }
 
@@ -75,7 +75,7 @@ CodeMirror.defineMode("scheme", function () {
             }
             var returnType = null;
 
-            switch (state.mode) {
+            switch(state.mode){
                 case "string": // multi-line string parsing mode
                     var next, escaped = false;
                     while ((next = stream.next()) != null) {
@@ -102,10 +102,10 @@ CodeMirror.defineMode("scheme", function () {
                     break;
                 case "s-expr-comment": // s-expr commenting mode
                     state.mode = false;
-                    if (stream.peek() == "(" || stream.peek() == "[") {
+                    if(stream.peek() == "(" || stream.peek() == "["){
                         // actually start scheme s-expr commenting mode
                         state.sExprComment = 0;
-                    } else {
+                    }else{
                         // if not we just comment the entire of the next token
                         stream.eatWhile(/[^/s]/); // eat non spaces
                         returnType = COMMENT;
@@ -147,7 +147,7 @@ CodeMirror.defineMode("scheme", function () {
                             } else if (stream.match(/^[-+0-9.]/, false)) {
                                 hasRadix = false;
                                 numTest = isDecimalNumber;
-                                // re-consume the intial # if all matches failed
+                            // re-consume the intial # if all matches failed
                             } else if (!hasExactness) {
                                 stream.eat('#');
                             }
@@ -166,14 +166,13 @@ CodeMirror.defineMode("scheme", function () {
                         stream.skipToEnd(); // rest of the line is a comment
                         returnType = COMMENT;
                     } else if (ch == "(" || ch == "[") {
-                        var keyWord = '';
-                        var indentTemp = stream.column(), letter;
+                      var keyWord = ''; var indentTemp = stream.column(), letter;
                         /**
-                         Either
-                         (indent-word ..
-                         (non-indent-word ..
-                         (;something else, bracket, etc.
-                         */
+                        Either
+                        (indent-word ..
+                        (non-indent-word ..
+                        (;something else, bracket, etc.
+                        */
 
                         while ((letter = stream.eat(/[^\s\(\[\;\)\]]/)) != null) {
                             keyWord += letter;
@@ -195,7 +194,7 @@ CodeMirror.defineMode("scheme", function () {
                         }
                         stream.backUp(stream.current().length - 1); // undo all the eating
 
-                        if (typeof state.sExprComment == "number") state.sExprComment++;
+                        if(typeof state.sExprComment == "number") state.sExprComment++;
 
                         returnType = BRACKET;
                     } else if (ch == ")" || ch == "]") {
@@ -203,8 +202,8 @@ CodeMirror.defineMode("scheme", function () {
                         if (state.indentStack != null && state.indentStack.type == (ch == ")" ? "(" : "[")) {
                             popStack(state);
 
-                            if (typeof state.sExprComment == "number") {
-                                if (--state.sExprComment == 0) {
+                            if(typeof state.sExprComment == "number"){
+                                if(--state.sExprComment == 0){
                                     returnType = COMMENT; // final closing bracket
                                     state.sExprComment = false; // turn off s-expr commenting mode
                                 }

@@ -1,4 +1,4 @@
-CodeMirror.defineMode("python", function (conf, parserConf) {
+CodeMirror.defineMode("python", function(conf, parserConf) {
     var ERRORCLASS = 'error';
 
     function wordRegexp(words) {
@@ -10,35 +10,31 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
     var doubleOperators = parserConf.doubleOperators || new RegExp("^((==)|(!=)|(<=)|(>=)|(<>)|(<<)|(>>)|(//)|(\\*\\*))");
     var doubleDelimiters = parserConf.doubleDelimiters || new RegExp("^((\\+=)|(\\-=)|(\\*=)|(%=)|(/=)|(&=)|(\\|=)|(\\^=))");
     var tripleDelimiters = parserConf.tripleDelimiters || new RegExp("^((//=)|(>>=)|(<<=)|(\\*\\*=))");
-    var identifiers = parserConf.identifiers || new RegExp("^[_A-Za-z][_A-Za-z0-9]*");
+    var identifiers = parserConf.identifiers|| new RegExp("^[_A-Za-z][_A-Za-z0-9]*");
 
     var wordOperators = wordRegexp(['and', 'or', 'not', 'is', 'in']);
     var commonkeywords = ['as', 'assert', 'break', 'class', 'continue',
-        'def', 'del', 'elif', 'else', 'except', 'finally',
-        'for', 'from', 'global', 'if', 'import',
-        'lambda', 'pass', 'raise', 'return',
-        'try', 'while', 'with', 'yield'];
+                          'def', 'del', 'elif', 'else', 'except', 'finally',
+                          'for', 'from', 'global', 'if', 'import',
+                          'lambda', 'pass', 'raise', 'return',
+                          'try', 'while', 'with', 'yield'];
     var commonBuiltins = ['abs', 'all', 'any', 'bin', 'bool', 'bytearray', 'callable', 'chr',
-        'classmethod', 'compile', 'complex', 'delattr', 'dict', 'dir', 'divmod',
-        'enumerate', 'eval', 'filter', 'float', 'format', 'frozenset',
-        'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'id',
-        'input', 'int', 'isinstance', 'issubclass', 'iter', 'len',
-        'list', 'locals', 'map', 'max', 'memoryview', 'min', 'next',
-        'object', 'oct', 'open', 'ord', 'pow', 'property', 'range',
-        'repr', 'reversed', 'round', 'set', 'setattr', 'slice',
-        'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple',
-        'type', 'vars', 'zip', '__import__', 'NotImplemented',
-        'Ellipsis', '__debug__'];
-    var py2 = {
-        'builtins': ['apply', 'basestring', 'buffer', 'cmp', 'coerce', 'execfile',
-            'file', 'intern', 'long', 'raw_input', 'reduce', 'reload',
-            'unichr', 'unicode', 'xrange', 'False', 'True', 'None'],
-        'keywords': ['exec', 'print']
-    };
-    var py3 = {
-        'builtins': ['ascii', 'bytes', 'exec', 'print'],
-        'keywords': ['nonlocal', 'False', 'True', 'None']
-    };
+                          'classmethod', 'compile', 'complex', 'delattr', 'dict', 'dir', 'divmod',
+                          'enumerate', 'eval', 'filter', 'float', 'format', 'frozenset',
+                          'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'id',
+                          'input', 'int', 'isinstance', 'issubclass', 'iter', 'len',
+                          'list', 'locals', 'map', 'max', 'memoryview', 'min', 'next',
+                          'object', 'oct', 'open', 'ord', 'pow', 'property', 'range',
+                          'repr', 'reversed', 'round', 'set', 'setattr', 'slice',
+                          'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple',
+                          'type', 'vars', 'zip', '__import__', 'NotImplemented',
+                          'Ellipsis', '__debug__'];
+    var py2 = {'builtins': ['apply', 'basestring', 'buffer', 'cmp', 'coerce', 'execfile',
+                            'file', 'intern', 'long', 'raw_input', 'reduce', 'reload',
+                            'unichr', 'unicode', 'xrange', 'False', 'True', 'None'],
+               'keywords': ['exec', 'print']};
+    var py3 = {'builtins': ['ascii', 'bytes', 'exec', 'print'],
+               'keywords': ['nonlocal', 'False', 'True', 'None']};
 
     if (!!parserConf.version && parseInt(parserConf.version, 10) === 3) {
         commonkeywords = commonkeywords.concat(py3.keywords);
@@ -89,15 +85,9 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
         if (stream.match(/^[0-9\.]/, false)) {
             var floatLiteral = false;
             // Floats
-            if (stream.match(/^\d*\.\d+(e[\+\-]?\d+)?/i)) {
-                floatLiteral = true;
-            }
-            if (stream.match(/^\d+\.\d*/)) {
-                floatLiteral = true;
-            }
-            if (stream.match(/^\.\d+/)) {
-                floatLiteral = true;
-            }
+            if (stream.match(/^\d*\.\d+(e[\+\-]?\d+)?/i)) { floatLiteral = true; }
+            if (stream.match(/^\d+\.\d*/)) { floatLiteral = true; }
+            if (stream.match(/^\.\d+/)) { floatLiteral = true; }
             if (floatLiteral) {
                 // Float literals may be "imaginary"
                 stream.eat(/J/i);
@@ -106,17 +96,11 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
             // Integers
             var intLiteral = false;
             // Hex
-            if (stream.match(/^0x[0-9a-f]+/i)) {
-                intLiteral = true;
-            }
+            if (stream.match(/^0x[0-9a-f]+/i)) { intLiteral = true; }
             // Binary
-            if (stream.match(/^0b[01]+/i)) {
-                intLiteral = true;
-            }
+            if (stream.match(/^0b[01]+/i)) { intLiteral = true; }
             // Octal
-            if (stream.match(/^0o[0-7]+/i)) {
-                intLiteral = true;
-            }
+            if (stream.match(/^0o[0-7]+/i)) { intLiteral = true; }
             // Decimal
             if (stream.match(/^[1-9]\d*(e[\+\-]?\d+)?/)) {
                 // Decimal literals may be "imaginary"
@@ -125,9 +109,7 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
                 intLiteral = true;
             }
             // Zero by itself with no other piece of number.
-            if (stream.match(/^0(?![\dx])/i)) {
-                intLiteral = true;
-            }
+            if (stream.match(/^0(?![\dx])/i)) { intLiteral = true; }
             if (intLiteral) {
                 // Integer literals may be "long"
                 stream.eat(/L/i);
@@ -202,7 +184,6 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
             }
             return OUTCLASS;
         }
-
         tokenString.isString = true;
         return tokenString;
     }
@@ -300,7 +281,7 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
         }
         var delimiter_index = '[({'.indexOf(current);
         if (delimiter_index !== -1) {
-            indent(stream, state, '])}'.slice(delimiter_index, delimiter_index + 1));
+            indent(stream, state, '])}'.slice(delimiter_index, delimiter_index+1));
         }
         if (indentInfo === 'dedent') {
             if (dedent(stream, state)) {
@@ -322,17 +303,17 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
     }
 
     var external = {
-        startState: function (basecolumn) {
+        startState: function(basecolumn) {
             return {
-                tokenize: tokenBase,
-                scopes: [{offset: basecolumn || 0, type: 'py'}],
-                lastToken: null,
-                lambda: false,
-                dedent: 0
-            };
+              tokenize: tokenBase,
+              scopes: [{offset:basecolumn || 0, type:'py'}],
+              lastToken: null,
+              lambda: false,
+              dedent: 0
+          };
         },
 
-        token: function (stream, state) {
+        token: function(stream, state) {
             var style = tokenLexer(stream, state);
 
             state.lastToken = style;
@@ -344,7 +325,7 @@ CodeMirror.defineMode("python", function (conf, parserConf) {
             return style;
         },
 
-        indent: function (state) {
+        indent: function(state) {
             if (state.tokenize != tokenBase) {
                 return state.tokenize.isString ? CodeMirror.Pass : 0;
             }

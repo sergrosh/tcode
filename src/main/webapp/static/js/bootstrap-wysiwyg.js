@@ -51,11 +51,11 @@
                             execCommand(command);
                         }
                     }).keyup(hotkey, function (e) {
-                        if (editor.attr('contenteditable') && editor.is(':visible')) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                        }
-                    });
+                            if (editor.attr('contenteditable') && editor.is(':visible')) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                            }
+                        });
                 });
             },
             getCurrentRange = function () {
@@ -87,8 +87,8 @@
                         $.when(readFileIntoDataUrl(fileInfo)).done(function (dataUrl) {
                             execCommand('insertimage', dataUrl);
                         }).fail(function (e) {
-                            options.fileUploadError("file-reader", e);
-                        });
+                                options.fileUploadError("file-reader", e);
+                            });
                     } else {
                         options.fileUploadError("unsupported-file-type", fileInfo.type);
                     }
@@ -112,8 +112,7 @@
                 toolbar.find('[data-toggle=dropdown]').click(restoreSelection);
 
                 toolbar.find('input[type=text][data-' + options.commandRole + ']').on('webkitspeechchange change', function () {
-                    var newValue = this.value;
-                    /* ugly but prevents fake double-calls due to selection restoration */
+                    var newValue = this.value; /* ugly but prevents fake double-calls due to selection restoration */
                     this.value = '';
                     restoreSelection();
                     if (newValue) {
@@ -122,17 +121,17 @@
                     }
                     saveSelection();
                 }).on('focus', function () {
-                    var input = $(this);
-                    if (!input.data(options.selectionMarker)) {
-                        markSelection(input, options.selectionColor);
-                        input.focus();
-                    }
-                }).on('blur', function () {
-                    var input = $(this);
-                    if (input.data(options.selectionMarker)) {
-                        markSelection(input, false);
-                    }
-                });
+                        var input = $(this);
+                        if (!input.data(options.selectionMarker)) {
+                            markSelection(input, options.selectionColor);
+                            input.focus();
+                        }
+                    }).on('blur', function () {
+                        var input = $(this);
+                        if (input.data(options.selectionMarker)) {
+                            markSelection(input, false);
+                        }
+                    });
                 toolbar.find('input[type=file][data-' + options.commandRole + ']').change(function () {
                     restoreSelection();
                     if (this.type === 'file' && this.files && this.files.length > 0) {
@@ -196,8 +195,6 @@
         selectionMarker: 'edit-focus-marker',
         selectionColor: 'darkgrey',
         dragAndDropImages: true,
-        fileUploadError: function (reason, detail) {
-            console.log("File upload error", reason, detail);
-        }
+        fileUploadError: function (reason, detail) { console.log("File upload error", reason, detail); }
     };
 }(window.jQuery));

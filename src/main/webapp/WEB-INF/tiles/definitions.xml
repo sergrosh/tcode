@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="basic" template="/WEB-INF/jsp/template/main.jsp">
+        <put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/home.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp"/>
+    </definition>
+
+    <definition name="CREATE_NOTE" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/note/create.jsp"/>
+    </definition>
+
+    <definition name="ERROR_PAGE" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/error/error.jsp"/>
+    </definition>
+
+    <definition name="PREVIEW_NOTE" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/note/preview.jsp"/>
+    </definition>
+
+    <definition name="PROFILE" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/user/profile.jsp"/>
+    </definition>
+
+    <definition name="TOOLS" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/tool/tools.jsp"/>
+    </definition>
+
+    <definition name="SUBMITTED_TOOLS" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/submitted-tools.jsp"/>
+    </definition>
+
+    <definition name="CREATE_TOOL" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/tool/submit.jsp"/>
+    </definition>
+
+    <definition name="RESOURCES" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/resource/resources.jsp"/>
+    </definition>
+
+    <definition name="SUBMITTED_RESOURCES" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/submitted-resources.jsp"/>
+    </definition>
+
+    <definition name="CREATE_RESOURCE" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/resource/submit.jsp"/>
+    </definition>
+
+    <definition name="TECHNOLOGIES" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/technology/technologies.jsp"/>
+    </definition>
+
+    <definition name="SUBMITTED_TECHNOLOGIES" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/submitted-technologies.jsp"/>
+    </definition>
+
+    <definition name="CREATE_TECHNOLOGY" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/technology/submit.jsp"/>
+    </definition>
+
+    <definition name="REGISTERED_USERS" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/users.jsp"/>
+    </definition>
+
+    <definition name="ABOUT" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/about.jsp"/>
+    </definition>
+
+    <definition name="ADMIN_USER_LIST" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/user/list.jsp"/>
+    </definition>
+
+    <definition name="ADMIN_USER_EDIT" extends="basic">
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/user/edit.jsp"/>
+    </definition>
+</tiles-definitions>
